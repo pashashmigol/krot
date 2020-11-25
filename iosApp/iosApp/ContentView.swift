@@ -1,8 +1,10 @@
 import SwiftUI
+import krot
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        let status = Client().askServerStatus()
+        return Text("Hello, World! \(status)")
     }
 }
 

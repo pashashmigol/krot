@@ -24,7 +24,13 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation("com.soywiz.korlibs.klock:klock:2.0.0-alpha")
+                implementation("io.ktor:ktor-client-core:1.4.0")
+//                implementation("io.ktor:ktor-client-okhttp:1.3.2")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
@@ -34,6 +40,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("androidx.core:core-ktx:1.3.2")
+                implementation("io.ktor:ktor-client-android:1.4.0")
             }
         }
         val androidTest by getting
