@@ -28,7 +28,6 @@ kotlin {
             dependencies {
                 implementation("com.soywiz.korlibs.klock:klock:2.0.0-alpha")
                 implementation("io.ktor:ktor-client-core:1.4.0")
-//                implementation("io.ktor:ktor-client-okhttp:1.3.2")
             }
         }
         val commonTest by getting {
@@ -44,7 +43,11 @@ kotlin {
             }
         }
         val androidTest by getting
-        val iosMain by getting
+        val iosMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-ios:1.4.0")
+            }
+        }
         val iosTest by getting
     }
 }
@@ -65,7 +68,10 @@ android {
 val packForXcode by tasks.creating(Sync::class) {
     group = "build"
     val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val framework = kotlin.targets.getByName<KotlinNativeTarget>("ios").binaries.getFramework(mode)
+    val framework = kotlin.targets
+        .getByName<KotlinNativeTarget>("ios")
+        .binaries.getFramework(mode)
+
     inputs.property("mode", mode)
     dependsOn(framework.linkTask)
     val targetDir = File(buildDir, "xcode-frameworks")
