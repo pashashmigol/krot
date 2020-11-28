@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":core"))
     implementation(kotlin("stdlib"))
     implementation("io.ktor:ktor-server-servlet:1.4.0")
     implementation("com.google.api-client:google-api-client:1.30.10")
