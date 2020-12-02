@@ -30,6 +30,9 @@ dependencies {
     implementation("com.google.appengine:appengine-api-1.0-sdk:1.9.76")
     implementation("com.google.auth:google-auth-library-oauth2-http:0.20.0")
     implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("io.ktor:ktor-gson:1.4.0")
+    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("org.danilopianini:gson-extras:0.2.2")
 }
 
 appengine {
