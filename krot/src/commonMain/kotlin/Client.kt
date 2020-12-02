@@ -6,14 +6,19 @@ import io.ktor.http.*
 
 class Client {
     private val client = HttpClient()
-    var address = Url("https://bored-passenger-290806.oa.r.appspot.com/status")
+    private val root = "https://bored-passenger-290806.oa.r.appspot.com"
+    private var status = Url("$root/status")
+    private var enterGame = Url("$root/enter")
 
-    suspend fun askServerStatus(): String {
-        val dateTime = DateTime.now()
+    suspend fun askServerStatus(): String = client.get {
+        url(this@Client.status).toString()
+    }
 
+    suspend fun enterGame(): String {
         val place : Player
-        return client.get<String> {
-            url(this@Client.address.toString())
-        } + dateTime
+
+        return client.post() {
+            url(this@Client.enterGame).toString()
+        }
     }
 }

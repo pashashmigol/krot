@@ -1,6 +1,3 @@
-import org.gradle.kotlin.dsl.resolver.buildSrcSourceRootsFilePath
-import org.jetbrains.kotlin.fir.contracts.impl.FirEmptyContractDescription.source
-
 plugins {
     kotlin("jvm")
     id("com.google.cloud.tools.appengine")
@@ -32,6 +29,7 @@ dependencies {
     implementation("com.google.apis:google-api-services-drive:v3-rev165-1.25.0")
     implementation("com.google.appengine:appengine-api-1.0-sdk:1.9.76")
     implementation("com.google.auth:google-auth-library-oauth2-http:0.20.0")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
 }
 
 appengine {

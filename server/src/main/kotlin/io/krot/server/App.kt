@@ -7,8 +7,13 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import core.Answer
 import core.Player
+import io.ktor.features.CallLogging
+import org.slf4j.event.Level
 
 fun Application.main() {
+    install(CallLogging) {
+        level = Level.TRACE
+    }
     routing {
         get("/status") {
             call.respond("Server is running!")

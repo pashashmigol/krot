@@ -30,7 +30,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             sourceSets.getByName("commonMain") {
-                kotlin.srcDir("../core")
+//                kotlin.srcDir("../core")
                 kotlin.srcDir("src/main/kotlin")
             }
             dependencies {
