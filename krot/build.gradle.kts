@@ -30,10 +30,11 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             sourceSets.getByName("commonMain") {
+                kotlin.srcDir("../core")
                 kotlin.srcDir("src/main/kotlin")
             }
             dependencies {
-                implementation("com.soywiz.korlibs.klock:klock-jvm:2.0.0-alpha")
+                implementation("com.soywiz.korlibs.klock:klock:2.0.0-alpha")
                 implementation("io.ktor:ktor-client-core:1.4.0")
             }
         }
