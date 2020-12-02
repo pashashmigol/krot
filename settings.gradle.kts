@@ -22,4 +22,3 @@ rootProject.name = "krot"
 include(":krot")
 include(":androidApp")
 include(":server")
-include(":core")

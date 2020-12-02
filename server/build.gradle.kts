@@ -1,3 +1,6 @@
+import org.gradle.kotlin.dsl.resolver.buildSrcSourceRootsFilePath
+import org.jetbrains.kotlin.fir.contracts.impl.FirEmptyContractDescription.source
+
 plugins {
     kotlin("jvm")
     id("com.google.cloud.tools.appengine")
@@ -12,8 +15,13 @@ repositories {
     maven("https://kotlin.bintray.com/ktor")
 }
 
+sourceSets.getByName("main") {
+    java.srcDir("../core")
+    java.srcDir("src/main/kotlin")
+}
+
 dependencies {
-    implementation(project(":core"))
+//    implementation(project(":core"))
     implementation(kotlin("stdlib"))
     implementation("io.ktor:ktor-server-servlet:1.4.0")
     implementation("com.google.api-client:google-api-client:1.30.10")
