@@ -1,10 +1,10 @@
-package http.routing
+package io.krot.server
 
 import com.soywiz.klock.DateFormat
 import com.soywiz.klock.DateTime
 import com.soywiz.klock.TimeSpan
 import kotlinx.coroutines.GlobalScope
-import model.*
+import core.*
 
 const val WINS_TO_FINISH = 3
 const val DRAWS_TO_FINISH = 3
@@ -26,7 +26,8 @@ data class GameProcess(val questionProvider: QuestionProvider,
 
         while (player1Wins < WINS_TO_FINISH
                 && player2Wins < WINS_TO_FINISH
-                && draws < DRAWS_TO_FINISH) {
+                && draws < DRAWS_TO_FINISH
+        ) {
 
             val answers: Pair<Answer, Answer> = mediator.retrieveAnswers(
                     players = Pair(player1, player2),
@@ -97,8 +98,8 @@ data class GameProcess(val questionProvider: QuestionProvider,
     }
 
     private fun defineFastest(answer1: Answer, answer2: Answer): String {
-        val tookTime1: TimeSpan = answer1.tookTime
-        val tookTime2: TimeSpan = answer2.tookTime
+        val tookTime1: Int = answer1.tookTime
+        val tookTime2: Int = answer2.tookTime
 
         return when {
             tookTime1 > tookTime2 -> answer2.playerId

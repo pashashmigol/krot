@@ -12,6 +12,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    jcenter()
     maven("https://kotlin.bintray.com/ktor")
 }
 
@@ -23,6 +24,7 @@ sourceSets.getByName("main") {
 dependencies {
 //    implementation(project(":core"))
     implementation(kotlin("stdlib"))
+    implementation("com.soywiz.korlibs.klock:klock:2.0.0-alpha")
     implementation("io.ktor:ktor-server-servlet:1.4.0")
     implementation("com.google.api-client:google-api-client:1.30.10")
     implementation("com.google.oauth-client:google-oauth-client-jetty:1.23.0")

@@ -1,6 +1,6 @@
-package http.routing
+package io.krot.server
 
-import model.*
+import core.*
 
 object FCMMediator : PlayersMediator() {
     override suspend fun send(challenge: Challenge, toPlayer: Player){

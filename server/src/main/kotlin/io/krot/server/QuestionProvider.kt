@@ -1,4 +1,4 @@
-package http.routing
+package io.krot.server
 
 import core.Challenge
 

@@ -1,7 +1,6 @@
 package io.krot.server
 
 import core.Challenge
-import http.routing.QuestionProvider
 
 object StubQuestionProvider : QuestionProvider {
     override fun obtainNewChallenge(gameId: String): Challenge {

@@ -17,6 +17,7 @@ pluginManagement {
     }
 }
 rootProject.name = "krot"
+enableFeaturePreview("GRADLE_METADATA")
 
 
 include(":krot")

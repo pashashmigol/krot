@@ -1,10 +1,10 @@
-package http.routing
+package io.krot.server
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.time.withTimeoutOrNull
 import kotlinx.coroutines.withTimeoutOrNull
-import model.*
+import core.*
 
 abstract class PlayersMediator(private val timeout: Long = 60) {
     private val coroutineScope = GlobalScope
