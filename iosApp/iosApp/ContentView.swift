@@ -21,7 +21,7 @@ class Updater: ObservableObject {
     
     init() {
         DispatchQueue.main.async() {
-            Client().askServerStatus(){
+            Client().enterGame(){
                 status,_ in
                 self.serverStatus = status ?? "no value"
             }

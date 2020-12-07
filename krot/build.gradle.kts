@@ -66,7 +66,6 @@ kotlin {
         val iosMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-ios:1.4.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:0.20.0-1.4-M1-release-99")
             }
         }
         val iosTest by getting
