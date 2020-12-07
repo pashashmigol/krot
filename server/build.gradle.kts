@@ -14,12 +14,11 @@ repositories {
 }
 
 sourceSets.getByName("main") {
-    java.srcDir("../core")
+//    java.srcDir("../core")
     java.srcDir("src/main/kotlin")
 }
 
 dependencies {
-//    implementation(project(":core"))
     implementation(kotlin("stdlib"))
     implementation("com.soywiz.korlibs.klock:klock:2.0.0-alpha")
     implementation("io.ktor:ktor-server-servlet:1.4.0")
