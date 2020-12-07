@@ -1,8 +1,8 @@
-import com.soywiz.klock.DateTime
 import core.Player
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import kotlinx.serialization.json.Json
 
 class Client {
     private val client = HttpClient()
@@ -15,10 +15,17 @@ class Client {
     }
 
     suspend fun enterGame(): String {
-        val place : Player
+        val player = Player(
+            id = "2",
+            nickName = "pasha",
+            lat = 0.0f, long = 0.0f, radius = 0.0f,
+            fcmToken = "111"
+        )
 
-        return client.post() {
+        return client.post {
             url(this@Client.enterGame).toString()
+            contentType(ContentType.Application.Json)
+            body = Json.encodeToString(PlayerSerializer, player)
         }
     }
 }
