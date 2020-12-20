@@ -1,5 +1,7 @@
 package io.krot.server
 
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.Message
 import core.*
 
 object FCMMediator : PlayersMediator() {
@@ -7,11 +9,21 @@ object FCMMediator : PlayersMediator() {
         return
     }
 
-    override suspend fun notifyGameStarted(message: String) {
-        TODO("Not yet implemented")
+    override suspend fun notifyGameStarted(message: String, player: Player) {
+        val registrationToken = player.fcmToken
+
+        val toSend: Message = Message.builder()
+            .putData("message", message)
+            .setToken(registrationToken)
+            .build()
+
+        val response: String = FirebaseMessaging
+            .getInstance()
+            .send(toSend)
+        println("Successfully sent message: $response")
     }
 
-    override suspend fun notifyGameFinished(message: String) {
+    override suspend fun notifyGameFinished(message: String, player: Player) {
         TODO("Not yet implemented")
     }
 }

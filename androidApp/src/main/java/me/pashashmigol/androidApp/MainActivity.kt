@@ -1,12 +1,16 @@
 package me.pashashmigol.androidApp
 
 import Client
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import core.*
 
+@Suppress("EXPERIMENTAL_API_USAGE")
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,12 +20,27 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val textView = findViewById<TextView>(R.id.testText)
+        val response = findViewById<TextView>(R.id.response)
         val client = Client()
-        GlobalScope.launch {
-            val status = client.enterGame()
-            textView.post {
-                textView.text = status
+
+        val enterGame = findViewById<Button>(R.id.enterGame)
+        enterGame.setOnClickListener {
+            val token = TokenKeeper.getToken(context = this) ?: "ooo"
+            Log.d("###", "MainActivity.onResume(); token = $token")
+
+            val player = Player(
+                id = "2",
+                nickName = "pasha",
+                lat = 0.0f, long = 0.0f, radius = 0.0f,
+                fcmToken = token
+            )
+
+            GlobalScope.launch {
+                val status = client.enterGame(player)
+                Log.d("###", "status = $status")
+                response.post {
+                    response.text = status
+                }
             }
         }
     }

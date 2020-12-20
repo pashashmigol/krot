@@ -9,7 +9,8 @@ import kotlinx.serialization.json.Json
 @ExperimentalSerializationApi
 class Client {
     private val client = HttpClient()
-    private val root = "https://bored-passenger-290806.oa.r.appspot.com"
+//    private val root = "https://bored-passenger-290806.oa.r.appspot.com"
+    private val root = "http://10.0.2.2:8080"
     private var status = Url("$root/status")
     private var enterGame = Url("$root/enter")
     private var leaveGame = Url("$root/leave")
@@ -19,13 +20,9 @@ class Client {
         url(this@Client.status).toString()
     }
 
-    suspend fun enterGame(): String {
-        val player = Player(
-            id = "2",
-            nickName = "pasha",
-            lat = 0.0f, long = 0.0f, radius = 0.0f,
-            fcmToken = "111"
-        )
+    var token: String = ""
+
+    suspend fun enterGame(player: Player): String {
 
         return client.post {
             url(this@Client.enterGame).toString()
@@ -39,7 +36,7 @@ class Client {
             id = "2",
             nickName = "pasha",
             lat = 0.0f, long = 0.0f, radius = 0.0f,
-            fcmToken = "111"
+            fcmToken = token
         )
 
         return client.post {
@@ -63,5 +60,9 @@ class Client {
             contentType(ContentType.Application.Json)
             body = Json.encodeToString(AnswerSerializer, answer)
         }
+    }
+
+    fun handlePush(data: Map<String, String>){
+
     }
 }

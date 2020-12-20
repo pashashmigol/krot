@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm")
     id("com.google.cloud.tools.appengine")
+    id("com.google.gms.google-services")
     war
 }
 
@@ -14,7 +15,7 @@ repositories {
 }
 
 sourceSets.getByName("main") {
-//    java.srcDir("../core")
+    java.srcDir("../core")
     java.srcDir("src/main/kotlin")
 }
 
@@ -32,6 +33,7 @@ dependencies {
     implementation("io.ktor:ktor-gson:1.4.0")
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("org.danilopianini:gson-extras:0.2.2")
+    implementation("com.google.firebase:firebase-admin:7.0.0")
 }
 
 appengine {

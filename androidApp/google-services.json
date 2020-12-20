@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "170079355063",
+    "firebase_url": "https://bored-passenger.firebaseio.com",
+    "project_id": "bored-passenger",
+    "storage_bucket": "bored-passenger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:170079355063:android:c0b7363ed55992f065cd32",
+        "android_client_info": {
+          "package_name": "me.pashashmigol.androidApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "170079355063-nrnm0dd5kcf5ufcoeaequ6nru30dnmj3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY7abLLbxWZ2J5uJ7JHHE2mKnLq70K5wY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "170079355063-nrnm0dd5kcf5ufcoeaequ6nru30dnmj3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

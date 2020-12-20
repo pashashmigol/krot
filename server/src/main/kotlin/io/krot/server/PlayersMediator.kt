@@ -2,7 +2,6 @@ package io.krot.server
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.time.withTimeoutOrNull
 import kotlinx.coroutines.withTimeoutOrNull
 import core.*
 
@@ -51,7 +50,7 @@ abstract class PlayersMediator(private val timeout: Long = 60) {
 
     abstract suspend fun send(challenge: Challenge, toPlayer: Player)
 
-    abstract suspend fun notifyGameStarted(message: String)
+    abstract suspend fun notifyGameStarted(message: String, player: Player)
 
-    abstract suspend fun notifyGameFinished(result: String)
+    abstract suspend fun notifyGameFinished(result: String, player: Player)
 }

@@ -16,6 +16,12 @@ object Playground {
     var mediator: PlayersMediator = FCMMediator
 
     fun enter(player: Player): Res<String> {
+        println("enter(); player = $player")
+
+        coroutineScope.launch {
+            mediator.notifyGameStarted("test push on enter", player)
+        }
+
         if (mayEnter(player)) {
             waitingPlayers[player.id] = player
         } else {
@@ -27,7 +33,7 @@ object Playground {
 
     fun submitAnswer(answer: Answer): Res<String> {
         val game = activeGames[answer.gameId]
-                ?: return Res.Error("no game with id $answer.gameId")
+            ?: return Res.Error("no game with id $answer.gameId")
 
         return game.submitAnswer(answer)
     }
@@ -45,7 +51,7 @@ object Playground {
     }
 
     private fun mayEnter(player: Player): Boolean =
-            !waitingPlayers.containsKey(player.id) && !playersInGame.containsKey(player.id)
+        !waitingPlayers.containsKey(player.id) && !playersInGame.containsKey(player.id)
 
     private fun tryToStartGame() {
         val players = mutableListOf<Player>()
@@ -54,15 +60,19 @@ object Playground {
             return
         }
         val game = GameProcess(
-                questionProvider = StubQuestionProvider,
-                mediator = mediator,
-                player1 = players[0],
-                player2 = players[1]
+            questionProvider = StubQuestionProvider,
+            mediator = mediator,
+            player1 = players[0],
+            player2 = players[1]
         )
         activeGames[game.id] = game
 
         coroutineScope.launch {
-            mediator.notifyGameStarted("Game between ${players[0]} and ${players[1]} started")
+            players.forEach {
+                mediator.notifyGameStarted(
+                    "Game between ${players[0]} and ${players[1]} started", it
+                )
+            }
             game.start()
         }
     }

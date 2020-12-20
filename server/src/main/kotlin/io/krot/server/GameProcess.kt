@@ -2,7 +2,6 @@ package io.krot.server
 
 import com.soywiz.klock.DateFormat
 import com.soywiz.klock.DateTime
-import com.soywiz.klock.TimeSpan
 import kotlinx.coroutines.GlobalScope
 import core.*
 
@@ -37,15 +36,18 @@ data class GameProcess(val questionProvider: QuestionProvider,
             }
 
             if(hasLeft(answers.first) && hasLeft(answers.second)){
-                mediator.notifyGameFinished(DRAW)
+                mediator.notifyGameFinished(DRAW, player1)
+                mediator.notifyGameFinished(DRAW, player2)
                 return
             }
             if(hasLeft(answers.first)){
-                mediator.notifyGameFinished(PLAYER_2_WON)
+                mediator.notifyGameFinished(PLAYER_2_WON, player1)
+                mediator.notifyGameFinished(PLAYER_2_WON, player2)
                 return
             }
             if(hasLeft(answers.second)){
-                mediator.notifyGameFinished(PLAYER_1_WON)
+                mediator.notifyGameFinished(PLAYER_1_WON, player1)
+                mediator.notifyGameFinished(PLAYER_1_WON, player2)
                 return
             }
             val winnerId = defineWinner(answers.first, answers.second, challenge)
@@ -56,13 +58,16 @@ data class GameProcess(val questionProvider: QuestionProvider,
         }
 
         if (player1Wins == WINS_TO_FINISH) {
-            mediator.notifyGameFinished(PLAYER_1_WON)
+            mediator.notifyGameFinished(PLAYER_1_WON, player1)
+            mediator.notifyGameFinished(PLAYER_1_WON, player2)
         }
         if (player2Wins == WINS_TO_FINISH) {
-            mediator.notifyGameFinished(PLAYER_2_WON)
+            mediator.notifyGameFinished(PLAYER_2_WON, player1)
+            mediator.notifyGameFinished(PLAYER_2_WON, player2)
         }
         if (draws == DRAWS_TO_FINISH) {
-            mediator.notifyGameFinished(DRAW)
+            mediator.notifyGameFinished(DRAW, player1)
+            mediator.notifyGameFinished(DRAW, player2)
         }
     }
 
