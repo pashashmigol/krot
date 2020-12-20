@@ -1,7 +1,5 @@
 package io.krot.server
 
-import com.google.appengine.repackaged.com.google.api.client.googleapis.auth.oauth2.GoogleCredential
-import com.google.appengine.repackaged.com.google.datastore.v1.client.DatastoreOptions
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
@@ -16,8 +14,6 @@ import io.ktor.features.*
 import io.ktor.gson.*
 import org.slf4j.event.Level
 import java.io.FileInputStream
-import com.google.appengine.repackaged.com.google.datastore.v1.client.DatastoreOptions.SCOPES
-import java.util.*
 
 
 fun Application.main() {
@@ -60,6 +56,7 @@ fun Application.main() {
                 message = result
             )
         }
+
         initFCM()
     }
 }
@@ -67,10 +64,6 @@ fun Application.main() {
 private fun initFCM() {
     val serviceAccount = FileInputStream(
         "/Users/pashashmigol/tests/krot/server/bored-passenger-firebase-adminsdk-lj7s7-23a6b54a95.json")
-
-//    val googleCredential: GoogleCredential = GoogleCredential
-//        .fromStream(FileInputStream("service-account.json"))
-//        .createScoped(SCOPES)
 
     val options: FirebaseOptions = FirebaseOptions.builder()
         .setCredentials(GoogleCredentials.fromStream(serviceAccount))

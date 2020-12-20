@@ -49,7 +49,9 @@ class FCMService : FirebaseMessagingService() {
 
     private fun handleNow(data: Map<String, String>) {
         Log.d(TAG, "handleNow(); data = $data")
-        Toast.makeText(this, "handleNow(); data = $data", Context.MODE_PRIVATE).show()
-    }
 
+        applicationContext.mainExecutor.execute {
+            Toast.makeText(applicationContext, "handleNow(); data = $data", Context.MODE_PRIVATE).show()
+        }
+    }
 }

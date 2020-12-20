@@ -5,7 +5,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.withTimeoutOrNull
 import core.*
 
-abstract class PlayersMediator(private val timeout: Long = 60) {
+abstract class PlayersMediator(private val timeout: Long = 60_000) {
     private val coroutineScope = GlobalScope
 
     private val answers1 = CompletableDeferred<Answer>()

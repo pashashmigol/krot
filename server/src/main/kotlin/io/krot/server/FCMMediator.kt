@@ -4,7 +4,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.Message
 import core.*
 
-object FCMMediator : PlayersMediator() {
+object FCMMediator : PlayersMediator(timeout = 5 * 60 * 1000) {
     override suspend fun send(challenge: Challenge, toPlayer: Player){
         return
     }

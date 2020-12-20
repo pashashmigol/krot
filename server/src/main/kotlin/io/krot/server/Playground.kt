@@ -18,10 +18,6 @@ object Playground {
     fun enter(player: Player): Res<String> {
         println("enter(); player = $player")
 
-        coroutineScope.launch {
-            mediator.notifyGameStarted("test push on enter", player)
-        }
-
         if (mayEnter(player)) {
             waitingPlayers[player.id] = player
         } else {

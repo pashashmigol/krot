@@ -28,9 +28,10 @@ class MainActivity : AppCompatActivity() {
             val token = TokenKeeper.getToken(context = this) ?: "ooo"
             Log.d("###", "MainActivity.onResume(); token = $token")
 
+            val id = System.currentTimeMillis().toString()
             val player = Player(
-                id = "2",
-                nickName = "pasha",
+                id = id,
+                nickName = "pasha $id",
                 lat = 0.0f, long = 0.0f, radius = 0.0f,
                 fcmToken = token
             )

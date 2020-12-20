@@ -26,7 +26,7 @@ android {
     compileSdkVersion(29)
     defaultConfig {
         applicationId = "me.pashashmigol.androidApp"
-        minSdkVersion(24)
+        minSdkVersion(28)
         targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
