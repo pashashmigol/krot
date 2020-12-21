@@ -40,6 +40,7 @@ kotlin {
                 kotlin.srcDir("src/main/kotlin")
             }
             dependencies {
+                implementation(kotlin("stdlib"))
                 implementation("com.soywiz.korlibs.klock:klock:2.0.0-alpha")
                 implementation("io.ktor:ktor-client-core:1.4.3")
                 implementation("io.ktor:ktor-client-serialization:1.4.3")

@@ -9,6 +9,6 @@ data class Player(
     val radius: Float = 0.0f
 ) {
     override fun toString(): String {
-        return "Player(id='$id', nickName='$nickName',fcmToken='$fcmToken')"
+        return "Player(id='$id', nickName='$nickName')"
     }
 }

@@ -20,6 +20,6 @@ rootProject.name = "krot"
 enableFeaturePreview("GRADLE_METADATA")
 
 
-include(":krot")
+include(":client")
 include(":androidApp")
 include(":server")

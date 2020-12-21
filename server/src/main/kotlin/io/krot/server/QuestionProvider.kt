@@ -4,5 +4,5 @@ import core.Challenge
 
 
 interface QuestionProvider {
-    fun obtainNewChallenge(gameId: String): Challenge
+    fun obtainNewChallenge(gameId: String, index: Int): Challenge
 }

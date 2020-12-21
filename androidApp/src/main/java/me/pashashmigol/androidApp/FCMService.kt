@@ -1,13 +1,12 @@
 package me.pashashmigol.androidApp
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import me.pashashmigol.androidApp.TokenKeeper.saveToken
 
 
+@Suppress("EXPERIMENTAL_API_USAGE")
 class FCMService : FirebaseMessagingService() {
     companion object {
         private const val TAG = "###"
@@ -51,7 +50,7 @@ class FCMService : FirebaseMessagingService() {
         Log.d(TAG, "handleNow(); data = $data")
 
         applicationContext.mainExecutor.execute {
-            Toast.makeText(applicationContext, "handleNow(); data = $data", Context.MODE_PRIVATE).show()
+            (application as DemoApplication).client.handlePush(data)
         }
     }
 }

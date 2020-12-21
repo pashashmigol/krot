@@ -1,6 +1,6 @@
 package core
 
-public sealed class Res<out T> {
+sealed class Res<out T> {
     class Success<T>(val data: T) : Res<T>() {
         override fun toString() = "Success(data=$data)"
     }
@@ -17,5 +17,4 @@ public sealed class Res<out T> {
             }
         }
     }
-
 }

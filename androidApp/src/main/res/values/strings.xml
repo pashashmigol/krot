@@ -2,4 +2,8 @@
 <resources>
     <string name="enter_game">Enter game</string>
     <string name="status">Status</string>
+    <string name="enter_your_name">enter your name</string>
+    <string name="enter_your_answer">enter your answer</string>
+    <string name="clear">Clear</string>
+    <string name="send">send</string>
 </resources>

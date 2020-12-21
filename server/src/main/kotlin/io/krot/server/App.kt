@@ -13,6 +13,7 @@ import core.Player
 import io.ktor.features.*
 import io.ktor.gson.*
 import org.slf4j.event.Level
+import java.io.File
 import java.io.FileInputStream
 
 
@@ -63,7 +64,7 @@ fun Application.main() {
 
 private fun initFCM() {
     val serviceAccount = FileInputStream(
-        "/Users/pashashmigol/tests/krot/server/bored-passenger-firebase-adminsdk-lj7s7-23a6b54a95.json")
+        "bored-passenger-firebase-adminsdk-lj7s7-23a6b54a95.json")
 
     val options: FirebaseOptions = FirebaseOptions.builder()
         .setCredentials(GoogleCredentials.fromStream(serviceAccount))

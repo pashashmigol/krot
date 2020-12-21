@@ -8,12 +8,12 @@ import kotlinx.coroutines.launch
 
 object Playground {
     private val waitingPlayers = mutableMapOf<String, Player>()
-    private val playersInGame = mutableMapOf<String, GameProcess>()
-    private val activeGames = mutableMapOf<String, GameProcess>()
+    private val playersInGame = mutableMapOf<String, Player>()
+    private val activeGames = mutableMapOf<String, Game>()
 
     private val coroutineScope = GlobalScope
 
-    var mediator: PlayersMediator = FCMMediator
+    private var mediator: PlayersMediator = FCMMediator
 
     fun enter(player: Player): Res<String> {
         println("enter(); player = $player")
@@ -36,11 +36,11 @@ object Playground {
 
     fun leave(player: Player): Res<Boolean> {
         if (waitingPlayers.contains(player.id)) {
-            waitingPlayers.remove(player.id)
+            waitingPlayers.remove(key = player.id)
             return Res.Success(true)
         }
-        if (playersInGame.contains(player)) {
-            waitingPlayers.remove(player)
+        if (playersInGame.contains(key = player.id)) {
+            waitingPlayers.remove(key = player.id)
             return Res.Success(true)
         }
         return Res.Error("No such player with id ${player.id} in playground")
@@ -55,21 +55,31 @@ object Playground {
         if (players.size < 2) {
             return
         }
-        val game = GameProcess(
+        val game = Game(
             questionProvider = StubQuestionProvider,
             mediator = mediator,
             player1 = players[0],
             player2 = players[1]
         )
-        activeGames[game.id] = game
+
+        waitingPlayers.remove(key = players[0].id)
+        waitingPlayers.remove(key = players[1].id)
+
+        playersInGame[players[0].id] = players[0]
+        playersInGame[players[1].id] = players[1]
+
+        activeGames[game.gameId] = game
 
         coroutineScope.launch {
-            players.forEach {
-                mediator.notifyGameStarted(
-                    "Game between ${players[0]} and ${players[1]} started", it
-                )
-            }
-            game.start()
+            mediator.notifyGameStarted(
+                gameId = game.gameId,
+                message = "Game between ${game.player1} and ${game.player2} started",
+                players = Pair(game.player1, game.player2)
+            )
+            game.run()
+
+            playersInGame.remove(key = players[0].id)
+            playersInGame.remove(key = players[1].id)
         }
     }
 
