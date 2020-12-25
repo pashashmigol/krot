@@ -67,22 +67,26 @@ class Client(private val root: String, private val tellTime: () -> Long) {
     }
 
     private suspend fun leaveGame(): Res<String> {
-        val player = Player(
-            id = "2",
-            nickName = "pasha",
-            lat = 0.0f, long = 0.0f, radius = 0.0f,
-            fcmToken = token
-        )
+        val playerId = currentPlayerId ?: return Res.Error("no current player!")
 
-        return client.post {
-            url(leaveGame)
-            contentType(ContentType.Application.Json)
-            body = Json.encodeToString(PlayerSerializer, player)
+        return try {
+            val res = client.post<HttpResponse> {
+                url(leaveGame)
+                contentType(ContentType.Application.Json)
+                body = "{ playerId : \"$playerId\"}"
+            }
+            notifyAnyEvent("enterGame(); res = ${res.status}")
+            when (res.status) {
+                OK -> Res.Success(data = res.readText())
+                else -> Res.Error(message = res.toString())
+            }
+        } catch (e: Exception) {
+            notifyError(e.toString())
+            Res.Error(message = "$TAG.submitAnswer(); $e")
         }
     }
 
     suspend fun submitAnswer(answer: String): Res<String> {
-
         val playerId = currentPlayerId ?: return Res.Error("no current player!")
         val gameId = currentGameId ?: return Res.Error("no current game!")
         val challengeId = currentChallengeId ?: return Res.Error("no current challenge!")
@@ -141,6 +145,7 @@ class Client(private val root: String, private val tellTime: () -> Long) {
             return
         }
         currentChallengeId = challengeId
+        challengeStartedAt = tellTime()
         listeners.forEach { it.onChallenge(question) }
     }
 

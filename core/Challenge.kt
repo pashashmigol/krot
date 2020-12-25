@@ -6,4 +6,7 @@ data class Challenge(
         val question: String,
         val correctAnswer: String
 ) {
+        override fun toString(): String {
+                return "Challenge(id='$id', question='$question', correctAnswer='$correctAnswer')"
+        }
 }

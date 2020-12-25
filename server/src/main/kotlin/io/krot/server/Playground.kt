@@ -12,8 +12,8 @@ object Playground {
     private val activeGames = mutableMapOf<String, Game>()
 
     private val coroutineScope = GlobalScope
-
     private var mediator: PlayersMediator = FCMMediator
+    private val questionProvider = GoogleSheetsQuestionsProvider()
 
     fun enter(player: Player): Res<String> {
         println("enter(); player = $player")
@@ -34,16 +34,16 @@ object Playground {
         return game.submitAnswer(answer)
     }
 
-    fun leave(player: Player): Res<Boolean> {
-        if (waitingPlayers.contains(player.id)) {
-            waitingPlayers.remove(key = player.id)
+    fun leave(playerId: String): Res<Boolean> {
+        if (waitingPlayers.contains(playerId)) {
+            waitingPlayers.remove(key = playerId)
             return Res.Success(true)
         }
-        if (playersInGame.contains(key = player.id)) {
-            waitingPlayers.remove(key = player.id)
+        if (playersInGame.contains(key = playerId)) {
+            waitingPlayers.remove(key = playerId)
             return Res.Success(true)
         }
-        return Res.Error("No such player with id ${player.id} in playground")
+        return Res.Error("No such player with id $playerId in playground")
     }
 
     private fun mayEnter(player: Player): Boolean =
@@ -56,7 +56,7 @@ object Playground {
             return
         }
         val game = Game(
-            questionProvider = StubQuestionProvider,
+            questionProvider = questionProvider,
             mediator = mediator,
             player1 = players[0],
             player2 = players[1]
