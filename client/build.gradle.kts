@@ -44,9 +44,7 @@ kotlin {
                 implementation("com.soywiz.korlibs.klock:klock:2.0.0-alpha")
                 implementation("io.ktor:ktor-client-core:1.4.3")
                 implementation("io.ktor:ktor-client-serialization:1.4.3")
-
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
-
                 implementation("io.ktor:ktor-client-logging:1.4.3")
             }
         }

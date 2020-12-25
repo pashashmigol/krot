@@ -7,6 +7,8 @@ import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.auth.http.HttpCredentialsAdapter
 import core.Challenge
+import core.Settings.CHALLENGES_FILE_COLUMNS
+import core.Settings.CHALLENGES_FILE_ID_GOOGLE_DOC
 
 
 class GoogleSheetsQuestionsProvider : QuestionProvider {
@@ -21,17 +23,15 @@ class GoogleSheetsQuestionsProvider : QuestionProvider {
             HttpCredentialsAdapter(credentials.createScoped(scopes))
         }
         val sheets = Sheets.Builder(transport, jacksonFactory, local).build()
-        println("GoogleSheetsQuestionsProvider.init()-1; sheets: $sheets")
 
         val allSheetsRequest = sheets.spreadsheets()
-            .values().get("10v3Vh2NdJwpfCrYiqYmPM7cAxfbXsjrmGn0ovqmhNdM", "A:C")
-        println("GoogleSheetsQuestionsProvider.init()-2; allSheetsRequest: $sheets")
+            .values().get(CHALLENGES_FILE_ID_GOOGLE_DOC, CHALLENGES_FILE_COLUMNS)
 
         allChallenges = allSheetsRequest.execute().getValues()
             .toRawEntries()
             .map { it.toChallenges() }
 
-        println("GoogleSheetsQuestionsProvider.init()-3; allChallenges: $allChallenges")
+        println("GoogleSheetsQuestionsProvider.init(); loaded ${allChallenges.size} challenges")
     }
 
 
@@ -43,7 +43,7 @@ class GoogleSheetsQuestionsProvider : QuestionProvider {
 }
 
 private fun Map<String, Any>.toChallenges() = Challenge(
-    id = stringFor("Id"),
+    id = stringFor("id"),
     gameId = "",
     question = stringFor("question"),
     correctAnswer = stringFor("answer"),
@@ -56,4 +56,3 @@ private fun List<List<Any>>.toRawEntries(): List<Map<String, Any>> {
 }
 
 private fun Map<String, Any>.stringFor(key: String) = (this[key] as? String) ?: ""
-private fun Map<String, Any>.longFor(key: String) = stringFor(key).toLongOrNull() ?: -1

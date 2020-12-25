@@ -3,23 +3,22 @@ package io.krot.server
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
-import core.Answer
-import core.Player
 import io.ktor.application.*
-import io.ktor.features.*
-import io.ktor.gson.*
 import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import core.Answer
+import core.Player
+import core.Settings.CREDENTIALS_FILE_NAME
+import core.Settings.DATABASE_URL
+import io.ktor.features.*
+import io.ktor.gson.*
 import org.slf4j.event.Level
 import java.io.FileInputStream
 
-private val serviceAccount = FileInputStream(
-    "bored-passenger-firebase-adminsdk-lj7s7-23a6b54a95.json"
-)
+private val serviceAccount = FileInputStream(CREDENTIALS_FILE_NAME)
 val credentials: GoogleCredentials = GoogleCredentials.fromStream(serviceAccount)
-
 
 fun Application.main() {
     install(CallLogging) {
@@ -77,7 +76,7 @@ fun Application.main() {
 private fun initFCM() {
     val options: FirebaseOptions = FirebaseOptions.builder()
         .setCredentials(credentials)
-        .setDatabaseUrl("https://bored-passenger.firebaseio.com")
+        .setDatabaseUrl(DATABASE_URL)
         .build()
     FirebaseApp.initializeApp(options)
 }
