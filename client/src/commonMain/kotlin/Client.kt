@@ -12,7 +12,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 
 @ExperimentalSerializationApi
-class Client(private val root: String, private val tellTime: () -> Long) {
+class Client(root: String, private val tellTime: () -> Long) {
     companion object {
         const val TAG = "Client"
     }
@@ -46,8 +46,6 @@ class Client(private val root: String, private val tellTime: () -> Long) {
     suspend fun askServerStatus(): String = client.get {
         url(this@Client.status).toString()
     }
-
-    var token: String = ""
 
     suspend fun enterGame(player: Player): Res<String> = try {
         this.currentPlayerId = player.id
