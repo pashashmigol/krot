@@ -5,7 +5,10 @@ struct ContentView: View {
     @ObservedObject var updater = Updater()
     
     var body: some View {
-        Text("Value is: \(updater.serverStatus)")
+        VStack {
+            Text("Status is: \(updater.serverStatus)")
+                .padding()
+        }
     }
 }
 
@@ -19,7 +22,7 @@ struct ContentView_Previews: PreviewProvider {
 class Updater: ObservableObject {
     @Published var serverStatus = "0"
     
-//    let client = Client.init(root: "https://bored-passenger-290806.oa.r.appspot.com", tellTime: {0})
+    //    let client = Client.init(root: "https://bored-passenger-290806.oa.r.appspot.com", tellTime: {0})
     
     let client = Client.init(root: "http://localhost:8080", tellTime: {0})
     
