@@ -1,0 +1,6 @@
+framework module krot {
+    umbrella header "krot.h"
+
+    export *
+    module * { export * }
+}

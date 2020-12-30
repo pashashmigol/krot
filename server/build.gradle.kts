@@ -15,7 +15,7 @@ repositories {
 }
 
 sourceSets.getByName("main") {
-    java.srcDir("../core")
+//    java.srcDir("../core")
     java.srcDir("src/main/kotlin")
 }
 
